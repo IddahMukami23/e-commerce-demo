@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Sign Up Form{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="signup-form bg-white">
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ form.errors }}</strong>
+            </div>
+        {% endif %}
+        <div class="heading_s1">
+            <h1 class="mb-5">Create an Account</h1>
+            <p class="mb-30">Already have an account?<a href="{% url 'login' %}">Login</a></p>
+        </div>
+
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username }}
+            </div>
+
+            <div class="form-group">
+                {{ form.email}}
+            </div>
+
+            <div class="form-group">
+                {{ form.password1 }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password2 }}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .signup-form {
+        max-width: 450px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+</style>
+
+{% endblock %}

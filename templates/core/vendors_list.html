@@ -1,0 +1,164 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+        .vendor-details-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+
+        /* Set max-height for the card image */
+        .card-img-top {
+            max-height: 300px; /* Adjust this value as needed */
+            object-fit: cover; /* Maintain aspect ratio */
+            filter: blur(5px);
+        }
+    </style>
+
+
+
+
+
+
+
+
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">{{ vendor.title }}</span></h2>
+    </div>
+
+
+
+    <main class="main">
+
+
+        <div class="container mt-4">
+            <div class="card">
+                <!-- Cover Image -->
+                <img src="{{ vendor.cover_image.url }}" class="card-img-top" alt="Cover Image">
+
+                <div class="vendor-details-overlay">
+                    <div class="card-body">
+                        <!-- Vendor Details -->
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-bold">{{ vendor.title }}</h5>
+                                <p class="card-text">Since {{ vendor.date|date:'Y' }}</p>
+                                <p class="card-text">⭐⭐⭐⭐<span>(4.0)</span></p>
+                                <p class="card-text">{{ vendor.description }}</p>
+                            </div>
+
+                            <!-- Address and Call Us -->
+                            <div class="col">
+                                <p class="card-text"><i class="fa-solid fa-location-dot text-success"></i> {{ vendor.address }}</p>
+                                <p class="card-text"><i class="fa-solid fa-phone text-success"></i> {{ vendor.contact }}</p>
+                            </div>
+
+                            <!-- Social Media Icons -->
+                            <div class="col">
+                                <p class="card-text">Follow us:</p>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+    <div class="text-center mb-4">
+        <h5 class="section-title px-5"><span class="px-2">Has {{ products.all.count }} Product{{ products.all.count|pluralize }}</span></h5>
+
+    </div>
+
+
+        <div class="container-fluid pt-2" style="margin: 50px">
+
+            <div class="col-lg-12 col-md-12">
+                <div class="row pb-3">
+
+                    <div class="row product-grid-4" style="margin:40px">
+                        {# Repeat this block for each card #}
+                        {% for product in products %}
+                            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                                <div class="card product-item border-5 mb-4 rounded">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <div class="image-container rounded">
+                                            <div style="position: absolute; top: -3px; left:-2px"><span class="badge badge-danger">-{{ product.get_percentage|floatformat:0 }}%</span></div>
+                                            <a href="#">
+                                                <img class="img-fluid w-100 rounded" src="{{ product.image.url }}" alt="{{ product.title }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center p-0 pt-4 pb-3">
+                                        <div class="d-flex flex-column align-items-start px-3">
+                                            <div class="product-category font-small text-muted" style="font-size:7pt; margin-bottom:5px">
+                                                <a href="{% url 'category_product_list' product.category.cid %}">{{ product.category }}</a>
+                                            </div>
+                                            <div><h6 class="text-truncate mb-2" style="font-size: 10pt"><strong>{{ product.title }}</strong></h6></div>
+                                            <br>
+                                            <div><p class="text-truncate mb-2" style="font-size: 10pt">{{ product.description}}</p></div>
+                                            <div class="product-rate font-small text-muted mb-2">
+                                                ⭐⭐⭐⭐<span style="font-size:8pt">(4.0)</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-light border rounded-bottom d-flex justify-content-between px-3">
+                                        <div>
+                                            <div class="product-price">
+                                                <span>KSh {{ product.price }}</span>
+                                                <span class="old-price" style="font-size:8pt">
+                                    <del>KSh {{ product.old_price }}</del>
+                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <a class="action-link" href="{% url 'details' product.pid %}" data-bs-toggle="tooltip" data-bs-placement="top" title="View Details">
+                                                <i class="fas fa-eye text-success mr-1"></i>
+                                            </a>
+                                            <a class="action-link" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                                <i class="fa-solid fa-heart text-success mx-1"></i>
+                                            </a>
+                                            <div class="add-cart">
+                                                <a class="add" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart">
+                                                    <i class="fas fa-cart-shopping text-success"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {# Repeat this block for each card #}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

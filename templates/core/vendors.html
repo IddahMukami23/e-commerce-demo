@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main class="main">
+        <div class="container-fluid pt-5">
+            <div class="text-center mb-4">
+                <h2 class="section-title px-5"><span class="px-2">Our Vendors</span></h2>
+
+            </div>
+            <p>We have <strong>{{ vendors.count }}</strong> vendor{{ vendors.count|pluralize }} now!</p>
+
+
+            <div class="col-lg-12 col-md-12">
+                <div class="row pb-3">
+
+                    <div class="row vendor-grid-4" style="margin:40px">
+                        {# Repeat this block for each vendor #}
+                        {% for vendor in vendors %}
+                            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                                <div class="card vendor-item border-5 mb-4 rounded">
+                                    <div class="card-header vendor-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <div class="image-container rounded">
+                                            <a href="{% url 'vendor_details' vendor.vid %}">
+                                                <img class="img-fluid w-100 rounded" src="{{ vendor.image.url }}" alt="{{ vendor.title }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center p-0 pt-4 pb-3">
+                                        <div class="d-flex flex-column align-items-start px-3">
+                                            <div class="vendor-name font-small text-muted" style="font-size:8pt; margin-bottom:5px">
+                                                <a href="#"></a>
+                                            </div>
+                                            <div><h6 class="text-truncate mb-2" style="font-size: 10pt">{{ vendor.product.all.count }} Products</h6></div>
+                                            <div class="font-small text-muted" style="font-size:8pt">
+                                                Since {{ vendor.date|date:'Y' }}
+                                            </div>
+                                            <div class="font-weight-bold " style="font-size:10pt">
+                                                {{ vendor.title }}
+                                            </div>
+                                            <div class="font-small text-muted" style="font-size:8pt">
+                                                ⭐⭐⭐⭐ <span>(4.0)</span>
+                                            </div>
+                                            <br>
+                                            <div class="font-small text-muted" style="font-size:8pt">
+                                                Address: {{ vendor.address }}
+                                            </div>
+                                            <div class="font-small text-muted" style="font-size:8pt">
+                                                Phone: {{ vendor.contact }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-light border rounded-bottom d-flex justify-content-between px-3">
+                                        <div>
+                                            <a href="{% url 'vendor_details' vendor.vid %}"><button class="btn btn-success rounded">Visit Store</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {# Repeat this block for each vendor #}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

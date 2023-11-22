@@ -1,0 +1,226 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Page Header Start -->
+    <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">Shop</span></h2>
+
+        </div>
+    <!-- Page Header End -->
+
+
+    <!-- Shop Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-12">
+                <!-- Price Start -->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="price-all">
+                            <label class="custom-control-label" for="price-all">All Price</label>
+                            <span class="badge border font-weight-normal">1000</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-1">
+                            <label class="custom-control-label" for="price-1">KSh0 - KSh500</label>
+                            <span class="badge border font-weight-normal">150</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-2">KSh501 - KSh1000</label>
+                            <span class="badge border font-weight-normal">295</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-3">
+                            <label class="custom-control-label" for="price-3">KSh1001 - KSh3000</label>
+                            <span class="badge border font-weight-normal">246</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-4">
+                            <label class="custom-control-label" for="price-4">KSh3001 - KSh7000</label>
+                            <span class="badge border font-weight-normal">145</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                            <input type="checkbox" class="custom-control-input" id="price-5">
+                            <label class="custom-control-label" for="price-5">KSh7001 - KSh10000</label>
+                            <span class="badge border font-weight-normal">168</span>
+                        </div>
+                    </form>
+                </div>
+                <!-- Price End -->
+
+                <!-- Category Start -->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Filter by category</h5>
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="price-all">
+                            <label class="custom-control-label" for="price-all">All Price</label>
+                            <span class="badge border font-weight-normal">1000</span>
+                        </div>
+
+                    </form>
+                </div>
+                <!-- Category End -->
+
+                <!-- Vendor Start -->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Filter by vendor</h5>
+                    <form>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" checked id="price-all">
+                            <label class="custom-control-label" for="price-all">All Price</label>
+                            <span class="badge border font-weight-normal">1000</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-1">
+                            <label class="custom-control-label" for="price-1">KSh0 - KSh500</label>
+                            <span class="badge border font-weight-normal">150</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-2">KSh501 - KSh1000</label>
+                            <span class="badge border font-weight-normal">295</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-3">
+                            <label class="custom-control-label" for="price-3">KSh1001 - KSh3000</label>
+                            <span class="badge border font-weight-normal">246</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" id="price-4">
+                            <label class="custom-control-label" for="price-4">KSh3001 - KSh7000</label>
+                            <span class="badge border font-weight-normal">145</span>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                            <input type="checkbox" class="custom-control-input" id="price-5">
+                            <label class="custom-control-label" for="price-5">KSh7001 - KSh10000</label>
+                            <span class="badge border font-weight-normal">168</span>
+                        </div>
+                    </form>
+                </div>
+                <!-- Vendor End -->
+
+            </div>
+            <!-- Shop Sidebar End -->
+
+
+            <!-- Shop Product Start -->
+            <div class="col-lg-9 col-md-12">
+                <div class="row pb-3">
+                    <div class="col-12 pb-1">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <form action="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search by name">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-transparent text-success">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="row product-grid-4" style="margin:40px">
+                        {# Repeat this block for each card #}
+                        {% for product in products %}
+                            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                                <div class="card product-item border-5 mb-4 rounded position-relative">
+                                    <!-- Add the tag here -->
+
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <div class="image-container rounded">
+                                            <div style="position: absolute; top: -3px; left:-2px"><span class="badge badge-danger">-{{ product.get_percentage|floatformat:0 }}%</span></div>
+                                            <a href="#">
+                                                <img class="img-fluid w-100 rounded" src="{{ product.image.url }}" alt="{{ product.title }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center p-0 pt-4 pb-3">
+                                        <div class="d-flex flex-column align-items-start px-3">
+                                            <div class="product-category font-small text-muted" style="font-size:8pt; margin-bottom:5px">
+                                                <a href="{% url 'category_product_list' product.category.cid %}">{{ product.category }}</a>
+                                            </div>
+                                            <div><h6 class="text-truncate mb-2" style="font-size: 10pt">{{ product.title }}</h6></div>
+                                            <div class="product-rate font-small text-muted mb-2">
+                                                {{ product.rating }} <span style="font-size:8pt">(4.0)</span>
+                                            </div>
+                                            <div class="font-small text-muted" style="font-size:8pt">
+                                                By <a href="{% url 'vendor_details' product.vendor.vid %}">{{ product.vendor }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-light border rounded-bottom d-flex justify-content-between px-3">
+                                        <div>
+                                            <div class="product-price">
+                                                <span>KSh {{ product.price }}</span>
+                                                <span class="old-price" style="font-size:8pt">
+                                <del>KSh {{ product.old_price }}</del>
+                            </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <a class="action-link" href="{% url 'details' product.pid %}" data-bs-toggle="tooltip" data-bs-placement="top" title="View Details">
+                                                <i class="fas fa-eye text-success mr-1"></i>
+                                            </a>
+                                            <a class="action-link" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                                <i class="fa-solid fa-heart text-success mx-1"></i>
+                                            </a>
+                                            <div class="add-cart">
+                                                <a class="add" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart">
+                                                    <i class="fas fa-cart-shopping text-success"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {# Repeat this block for each card #}
+                    </div>
+
+
+                    <div class="col-12 pb-1">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center mb-3">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Shop Product End -->
+        </div>
+    </div>
+    <!-- Shop End -->
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
