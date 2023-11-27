@@ -4,8 +4,14 @@ from core.models import (Product, Category, Vendor, ProductReview, ProductImages
 
 def default(request):
     categories = Category.objects.all()
-    # address = Address.objects.get(user=request.user)
+    vendors = Vendor.objects.all()
+    try:
+        address = Address.objects.get(user=request.user)
+    except:
+        address = None
+
     return {
         'categories': categories,
-        # 'address': address
+        'address': address,
+        'vendors': vendors,
     }

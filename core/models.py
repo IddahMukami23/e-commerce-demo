@@ -3,6 +3,7 @@ from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userAuth.models import User
 from taggit.managers import TaggableManager
+from ckeditor_uploader.fields import RichTextUploadingField
 
 STATUS_CHOICE = (
     ('processing', 'Processing'),
@@ -58,7 +59,7 @@ class Vendor(models.Model):
     title = models.CharField(max_length=100, default='Fruity')
     image = models.ImageField(upload_to='user_directory_path', default='vendor.jpg')
     cover_image = models.ImageField(upload_to='user_directory_path', default='vendor.jpg')
-    description = models.TextField(null=True, blank=True, default='I am an amazing vendor')
+    description = RichTextUploadingField(null=True, blank=True, default='I am an amazing vendor')
 
     address = models.CharField(max_length=100, default='254 Nairobi.')
     contact = models.CharField(max_length=100, default='+254 (567) 890')
@@ -89,12 +90,12 @@ class Product(models.Model):
 
     title = models.CharField(max_length=100, default='Fresh fruit')
     image = models.ImageField(upload_to='user_directory_path', default='product.jpg')
-    description = models.TextField(null=True, blank=True, default='Uploaded product')
+    description = RichTextUploadingField(null=True, blank=True, default='Uploaded product')
 
     price = models.DecimalField(max_digits=65, decimal_places=2, default='1.99')
     old_price = models.DecimalField(max_digits=65, decimal_places=2, default='2.99')
 
-    specifications = models.TextField(null=True, blank=True)
+    specifications = RichTextUploadingField(null=True, blank=True)
     type = models.CharField(max_length=100, default='Organic', null=True, blank=True)
     stock_count = models.CharField(max_length=100, default=10, null=True, blank=True)
     life = models.CharField(max_length=100, default='7 Days', null=True, blank=True)
@@ -165,8 +166,8 @@ class CartOrderItems(models.Model):
 
 
 class ProductReview(models.Model):
-    user = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='reviews')
     review = models.TextField()
     rating = models.IntegerField(choices=RATING, default=None)
     date = models.DateTimeField(auto_now_add=True)
@@ -182,7 +183,7 @@ class ProductReview(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 
     date = models.DateTimeField(auto_now_add=True)
@@ -195,7 +196,7 @@ class Wishlist(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=100, null=True)
     status = models.BooleanField(default=False)
 

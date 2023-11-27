@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'taggit',
+    'ckeditor',
 
     # my apps
     'core',
@@ -134,3 +135,23 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'userAuth.User'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+# CKEDITOR_CONFIGS = {
+#
+#     'default': {
+#         'skin': 'moono',
+#         'codeSnippet_theme': 'monokai',
+#         'toolbar': 'all',
+#         'extraPlugins': ','.join(
+#             [
+#                 'codesnippet',
+#                 'widget',
+#                 'dialog',
+#             ]
+#
+#         ),
+#     }
+#
+# }

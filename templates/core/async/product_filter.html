@@ -1,0 +1,61 @@
+
+
+    <div class="row product-grid-4" style="margin:40px">
+        {# Repeat this block for each card #}
+        {% for product in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1" >
+                <div class="card product-item border-5 mb-4 rounded position-relative">
+                    <!-- Add the tag here -->
+
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <div class="image-container rounded">
+                            <div style="position: absolute; top: -3px; left:-2px"><span class="badge badge-danger">-{{ product.get_percentage|floatformat:0 }}%</span></div>
+                            <a href="#">
+                                <img class="img-fluid w-100 rounded" src="{{ product.image.url }}" alt="{{ product.title }}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body text-center p-0 pt-4 pb-3">
+                        <div class="d-flex flex-column align-items-start px-3">
+                            <div class="product-category font-small text-muted" style="font-size:8pt; margin-bottom:5px">
+                                <a href="{% url 'category_product_list' product.category.cid %}">{{ product.category }}</a>
+                            </div>
+                            <div><h6 class="text-truncate mb-2" style="font-size: 10pt">{{ product.title }}</h6></div>
+                            <div class="product-rate font-small text-muted mb-2">
+                                 ⭐⭐⭐⭐<span style="font-size:8pt">(4.0)</span>
+                            </div>
+                            <div class="font-small text-muted" style="font-size:8pt">
+                                By <a href="{% url 'vendor_details' product.vendor.vid %}">{{ product.vendor }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light border rounded-bottom d-flex justify-content-between px-3">
+                        <div>
+                            <div class="product-price">
+                                <span>KSh {{ product.price }}</span>
+                                <span class="old-price" style="font-size:8pt">
+                                <del>KSh {{ product.old_price }}</del>
+                            </span>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <a class="action-link" href="{% url 'details' product.pid %}" data-bs-toggle="tooltip" data-bs-placement="top" title="View Details">
+                                <i class="fas fa-eye text-success mr-1"></i>
+                            </a>
+                            <a class="action-link" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                <i class="fa-solid fa-heart text-success mx-1"></i>
+                            </a>
+                            <div class="add-cart">
+                                <a class="add" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart">
+                                    <i class="fas fa-cart-shopping text-success"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {# Repeat this block for each card #}
+    </div>
+
+

@@ -12,7 +12,7 @@
     <!-- Favicon -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="{% static 'img/logo/favicon.ico' %}" rel="icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,6 +20,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+
+
 
     <!-- Libraries Stylesheet -->
     <link href="../../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -69,13 +74,13 @@
             </a>
         </div>
         <div class="col-lg-6 col-6 text-left">
-            <form action="">
+            <form method="get" action="{% url 'search' %}">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input type="text" class="form-control" placeholder="Search for products" name="q">
+
                     <div class="input-group-append">
-                    <span class="input-group-text bg-transparent text-success">
-                        <i class="fa fa-search"></i>
-                    </span>
+                        <span><button class="input-group-text bg-transparent text-success" type="submit" style="height: 38px"><i class="fa fa-search"></i></button></span>
+
                     </div>
                 </div>
             </form>
@@ -91,7 +96,7 @@
             </a>
             <a href="" class="btn border">
                 <i class="fas fa-shopping-cart text-success"></i>
-                <span class="badge">0</span>
+                <span class="badge cart-items-count" id="cart-count">{{ request.session.cart_data_obj|length }}</span>
             </a>
 
         </div>
@@ -249,27 +254,32 @@
 
 
 <!-- JavaScript Libraries -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-3.4.1.js"></script>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-<script src="{% static 'lib/easing/easing.min.js' %}"></script>
-<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-<!-- Bootstrap JS and Popper.js Scripts -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
-
-<!-- Contact Javascript File -->
-<script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
-<script src="{% static 'mail/contact.js' %}"></script>
-
-<!-- Template Javascript -->
-<script src="{% static 'js/main.js' %}"></script>
-<!-- Bootstrap JS and Font Awesome Icons (for social media icons) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Bootstrap and Font Awesome Icons (for social media icons) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<!-- Other Bootstrap-related scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Additional jQuery Plugins -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqBootstrapValidation/1.3.7/jqBootstrapValidation.js"></script>
+
+
+<!-- Template and Custom Scripts -->
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+<script src="{% static 'mail/contact.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/function.js' %}"></script>
 
 </body>
 

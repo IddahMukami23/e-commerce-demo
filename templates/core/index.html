@@ -96,7 +96,7 @@
                                             </div>
                                             <div><h6 class="text-truncate mb-2" style="font-size: 10pt">{{ product.title }}</h6></div>
                                             <div class="product-rate font-small text-muted mb-2">
-                                                {{ product.rating }} <span style="font-size:8pt">(4.0)</span>
+                                                 ⭐⭐⭐⭐<span style="font-size:8pt">(4.0)</span>
                                             </div>
                                             <div class="font-small text-muted" style="font-size:8pt">
                                                 By <a href="{% url 'vendor_details' product.vendor.vid %}">{{ product.vendor }}</a>
@@ -106,7 +106,7 @@
                                     <div class="card-footer bg-light border rounded-bottom d-flex justify-content-between px-3">
                                         <div>
                                             <div class="product-price">
-                                                <span>KSh {{ product.price }}</span>
+                                               <span>kSh</span><span class="current-product-price-{{ product.id }}">{{ product.price }}</span>
                                                 <span class="old-price" style="font-size:8pt">
                                                <del>KSh {{ product.old_price }}</del>
                                                 </span>
@@ -120,9 +120,14 @@
                                                 <i class="fa-solid fa-heart text-success mx-1"></i>
                                             </a>
                                             <div class="add-cart">
-                                                <a class="add" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart">
+                                                <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ product.id }}">
+                                                <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}">
+                                                <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+                                                <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+                                                <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+                                                <button  class="add-to-cart-btn " data-index="{{ product.id }}"  title="Add To Cart" id="add-to-cart-btn" style="background: transparent; border: none">
                                                     <i class="fas fa-cart-shopping text-success"></i>
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

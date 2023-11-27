@@ -1,8 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
+
 {% block content %}
-
-
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
@@ -16,13 +15,11 @@
     </div>
     <!-- Page Header End -->
 
-
     <!-- Shop Detail Start -->
     <div class="container-fluid py-5">
         <div class="row px-xl-5">
             <div class="col-lg-5 pb-5">
                 <img class="w-100 h-75 rounded shadow" src="{{ p.image.url }}" alt="Image">
-
             </div>
 
             <div class="col-lg-7 pb-5">
@@ -34,18 +31,15 @@
                     ⭐⭐⭐⭐<span>(4.0)</span>
                 </div>
                 <div class="product-price">
-                    <span class="text-success font-weight-bolder" style="font-family:Poppins, sans-serif; font-size: x-large;">KSh {{ p.price }}</span><br>
+                    <span class="font-weight-bolder text-success">kSh</span> <span class="font-weight-bolder text-success current-product-price-{{ p.id }}">{{ p.price }}</span>
+                    <br>
                     <div style="display: block">
                         <span class="text-danger">-{{ p.get_percentage|floatformat:0 }}% off</span>
-
                         <span class="old-price" style="font-size: 10pt; display: block; margin-top: 5px;"><del>KSh {{ p.old_price }}</del></span>
-
                     </div>
-
-
                 </div>
                 <br>
-                <div>{{ p.description }}</div>
+                <div>{{ p.description|truncatechars:30|safe }}</div>
                 <br>
 
                 <div class="row">
@@ -54,101 +48,27 @@
                         <p class="card-text mb-1"><small class="text-muted">MFG:<span>{{ p.mfd|date:'d M, Y'}}</span></small></p>
                         <p class="card-text mb-1"><small class="text-muted">LIFE:<span>{{ p.life }}</span></small></p>
                     </div>
-
-
                     <div class="col">
                         <p class="card-text mb-1"><small class="text-muted">SKU:<span>{{ p.sku }}</span></small></p>
-                        <p class="card-text mb-1"><small class="text-muted">Tags:{% for tag in p.tags.all %}<span><a href="#">#{{ tag.name }}</a>,</span>{% endfor %}</small></p>
+                        <p class="card-text mb-1"><small class="text-muted">Tags:{% for tag in p.tags.all %}<span><a href="{% url 'tags' tag.slug %}">#{{ tag.name }}</a>,</span>{% endfor %}</small></p>
                         <p class="card-text mb-1"><small class="text-muted">Stock:<span>{{ p.stock_count }} items in stock</span></small></p>
                     </div>
                 </div>
 
                 <br>
+                <div class="d-flex align-items-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                        <input type="number" class="form-control bg-light text-center rounded" value="1" id="product-quantity">
+                        {#                        <input type="hidden" value="{{ p.id }}" class="product-id" name="product_id" id="product_id">#}
+                        {#                        <input type="hidden" value="{{ p.title }}" class="product-title" name="product_title" id="product_title">#}
+                        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
+                        <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
+                        <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+                        <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+                    </div>
+                    <button type="submit" class="btn btn-success px-3 rounded" id="add-to-cart-btn><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                </div>
 
-                {##}
-                {#                <div class="d-flex mb-3">#}
-                {#                    <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>#}
-                {#                    <form>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="size-1" name="size">#}
-                {#                            <label class="custom-control-label" for="size-1">XS</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="size-2" name="size">#}
-                {#                            <label class="custom-control-label" for="size-2">S</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="size-3" name="size">#}
-                {#                            <label class="custom-control-label" for="size-3">M</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="size-4" name="size">#}
-                {#                            <label class="custom-control-label" for="size-4">L</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="size-5" name="size">#}
-                {#                            <label class="custom-control-label" for="size-5">XL</label>#}
-                {#                        </div>#}
-                {#                    </form>#}
-                {#                </div>#}
-                {#                <div class="d-flex mb-4">#}
-                {#                    <p class="text-dark font-weight-medium mb-0 mr-3">Colors:</p>#}
-                {#                    <form>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="color-1" name="color">#}
-                {#                            <label class="custom-control-label" for="color-1">Black</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="color-2" name="color">#}
-                {#                            <label class="custom-control-label" for="color-2">White</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="color-3" name="color">#}
-                {#                            <label class="custom-control-label" for="color-3">Red</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="color-4" name="color">#}
-                {#                            <label class="custom-control-label" for="color-4">Blue</label>#}
-                {#                        </div>#}
-                {#                        <div class="custom-control custom-radio custom-control-inline">#}
-                {#                            <input type="radio" class="custom-control-input" id="color-5" name="color">#}
-                {#                            <label class="custom-control-label" for="color-5">Green</label>#}
-                {#                        </div>#}
-                {#                    </form>#}
-                {#                </div>#}
-                {#                <div class="d-flex align-items-center mb-4 pt-2">#}
-                {#                    <div class="input-group quantity mr-3" style="width: 130px;">#}
-                {#                        <div class="input-group-btn">#}
-                {#                            <button class="btn btn-primary btn-minus" >#}
-                {#                                <i class="fa fa-minus"></i>#}
-                {#                            </button>#}
-                {#                        </div>#}
-                {#                        <input type="text" class="form-control bg-secondary text-center" value="1">#}
-                {#                        <div class="input-group-btn">#}
-                {#                            <button class="btn btn-primary btn-plus">#}
-                {#                                <i class="fa fa-plus"></i>#}
-                {#                            </button>#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>#}
-                {#                </div>#}
-                {#                <div class="d-flex pt-2">#}
-                {#                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>#}
-                {#                    <div class="d-inline-flex">#}
-                {#                        <a class="text-dark px-2" href="">#}
-                {#                            <i class="fab fa-facebook-f"></i>#}
-                {#                        </a>#}
-                {#                        <a class="text-dark px-2" href="">#}
-                {#                            <i class="fab fa-twitter"></i>#}
-                {#                        </a>#}
-                {#                        <a class="text-dark px-2" href="">#}
-                {#                            <i class="fab fa-linkedin-in"></i>#}
-                {#                        </a>#}
-                {#                        <a class="text-dark px-2" href="">#}
-                {#                            <i class="fab fa-pinterest"></i>#}
-                {#                        </a>#}
-                {#                    </div>#}
-                {#                </div>#}
             </div>
         </div>
         <div class="row px-xl-5">
@@ -156,12 +76,11 @@
                 <div class="nav nav-tabs justify-content-center border-secondary mb-4">
                     <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">Description</a>
                     <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-2">Information</a>
-                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
+                    <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3">Reviews ({{ reviews.all.count }})</a>
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">
-
-                        <p>{{ p.description }}</p>
+                        {{ p.description|safe }}
                     </div>
                     <div class="tab-pane fade" id="tab-pane-2">
                         <h4 class="mb-3">Additional Information</h4>
@@ -203,137 +122,131 @@
                     </div>
                     <div class="tab-pane fade" id="tab-pane-3">
                         <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
-                                <div class="media mb-4">
-                                    <img src="../../static/img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                        <div class="text-primary mb-2">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                            <i class="far fa-star"></i>
+                            <div class="col-md-12">
+                                <div class="reviews-table ">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Date</th>
+                                            <th>Rating</th>
+                                            <th>Review</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="comment-list tbody">
+                                        {% for r in reviews %}
+                                            <tr>
+                                                <td>
+                                                    <img src="../../static/img/logo/img.png" alt="Image" class="img-fluid mr-3 mt-1 rounded" style="width: 50px;">
+                                                    <a href="" class="font-heading text-brand">{{ r.user.username|title }}</a>
+                                                </td>
+                                                <td>
+                                                    <span class="text-xs text-muted"><small>{{ r.date|date:'d M, Y' }}</small></span>
+                                                </td>
+                                                <td>
+                                                    <div class="product-rate d-inline-block">
+                                                        <div class="product-rating" style="width: {{ r.rating }}%"></div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ r.review }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {% if request.user.is_authenticated %}
+                                    {% if make_review == True  %}
+                                        <div class="col-md-6">
+                                            <div class="sticky-top" style="top: 20px;">
+                                                <h4 class="mb-4 add-review">Leave a review</h4>
+                                                <strong class="text-success" id="review-rsp"></strong>
+                                            </div>
+                                            <form class="hide-comment-form" method="post" id="commentForm" action="{% url 'add-review' p.pid %}">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    {{ review_form.review }}
+                                                </div>
+                                                <div class="form-group">
+                                                    {{ review_form.rating }}
+                                                </div>
+                                                <div class="form-group mb-0">
+                                                    <input type="submit" value="Leave Your Review" class="btn btn-success px-3 rounded">
+                                                </div>
+                                            </form>
                                         </div>
-                                        <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4 class="mb-4">Leave a review</h4>
-                                <small>Your email address will not be published. Required fields are marked *</small>
-                                <div class="d-flex my-3">
-                                    <p class="mb-0 mr-2">Your Rating * :</p>
-                                    <div class="text-primary">
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                    </div>
-                                </div>
-                                <form>
-                                    <div class="form-group">
-                                        <label for="message">Your Review *</label>
-                                        <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Your Name *</label>
-                                        <input type="text" class="form-control" id="name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Your Email *</label>
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-                                    <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                    </div>
-                                </form>
+                                    {% endif %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!-- Shop Detail End -->
 
-
     <!-- Products Start -->
     {% if products %}
-    	<div class="container-fluid py-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
-        </div>
-        <div class="row px-xl-5">
-
-            {% for p in products %}
-                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <div class="card product-item border-5 mb-4 rounded">
-                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <div class="image-container rounded">
-                                <div style="position: absolute; top: -3px; left:-2px"><span class="badge badge-danger">-{{ p.get_percentage|floatformat:0 }}%</span></div>
-                                <a href="">
-                                    <img class="img-fluid w-100 rounded" src="{{ p.image.url }}" alt="{{ p.title }}">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body text-center p-0 pt-4 pb-3">
-                            <div class="d-flex flex-column align-items-start px-3">
-                                {#                                <div class="product-category font-small text-muted" style="font-size:8pt; margin-bottom:5px">#}
-                                {#                                    <a href="{% url 'category_product_list' product.category.cid %}">{{ product.category }}</a>#}
-                                {#                                </div>#}
-                                <div><h6 class="text-truncate mb-2" style="font-size: 10pt">{{ p.title|truncatechars:20 }}</h6></div>
-                                <div class="product-rate font-small text-muted mb-2">
-                                    ⭐⭐⭐⭐<span style="font-size:8pt">(4.0)</span>
-                                </div>
-                                {#                                <div class="font-small text-muted" style="font-size:8pt">#}
-                                {#                                    By <a href="{% url 'vendor_details' product.vendor.vid %}">{{ product.vendor }}</a>#}
-                                {#                                </div>#}
-                            </div>
-                        </div>
-                        <div class="card-footer bg-light border rounded-bottom d-flex justify-content-between px-3">
-                            <div>
-                                <div class="product-price">
-                                    <span>KSh {{ p.price }}</span>
-                                    <span class="old-price" style="font-size:8pt">
-                                               <del>KSh {{ p.old_price }}</del>
-                                                </span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <a class="action-link" href="{% url 'details' p.pid %}" data-bs-toggle="tooltip" data-bs-placement="top" title="View Details">
-                                    <i class="fas fa-eye text-success mr-1"></i>
-                                </a>
-                                <a class="action-link" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                    <i class="fa-solid fa-heart text-success mx-1"></i>
-                                </a>
-                                <div class="add-cart">
-                                    <a class="add" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart">
-                                        <i class="fas fa-cart-shopping text-success"></i>
+        <div class="container-fluid py-5">
+            <div class="text-center mb-4">
+                <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
+            </div>
+            <div class="row px-xl-5">
+                {% for product in products %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                        <div class="card product-item border-5 mb-4 rounded">
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <div class="image-container rounded">
+                                    <div style="position: absolute; top: -3px; left:-2px"><span class="badge badge-danger">-{{ product.get_percentage|floatformat:0 }}%</span></div>
+                                    <a href="">
+                                        <img class="img-fluid w-100 rounded" src="{{ product.image.url }}" alt="{{ product.title }}">
                                     </a>
+                                </div>
+                            </div>
+                            <div class="card-body text-center p-0 pt-4 pb-3">
+                                <div class="d-flex flex-column align-items-start px-3">
+                                    <div><h6 class="text-truncate mb-2" style="font-size: 10pt">{{ product.title|truncatechars:20 }}</h6></div>
+                                    <div class="product-rate font-small text-muted mb-2">
+                                        ⭐⭐⭐⭐<span style="font-size:8pt">(4.0)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light border rounded-bottom d-flex justify-content-between px-3">
+                                <div>
+                                    <div class="product-price">
+                                        <span class="">KSh {{ product.price }}</span>
+                                        <span class="old-price" style="font-size:8pt">
+                                            <del>KSh {{ product.old_price }}</del>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <a class="action-link" href="{% url 'details' product.pid %}" data-bs-toggle="tooltip" data-bs-placement="top" title="View Details">
+                                        <i class="fas fa-eye text-success mr-1"></i>
+                                    </a>
+                                    <a class="action-link" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                        <i class="fa-solid fa-heart text-success mx-1"></i>
+                                    </a>
+
+                                    <div class="add-cart">
+                                        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ product.id }}">
+                                        <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}">
+                                        <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+                                        <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+                                        <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+                                        <button  class="add-to-cart-btn " data-index="{{ product.id }}"  title="Add To Cart" id="add-to-cart-btn" style="background: transparent; border: none">
+                                            <i class="fas fa-cart-shopping text-success"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-
-
+                {% endfor %}
+            </div>
         </div>
-    </div>
     {% endif %}
     <!-- Products End -->
-
-
 {% endblock %}
-
-
-
-
-
-
-
-
-

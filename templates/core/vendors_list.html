@@ -104,7 +104,7 @@
                                             </div>
                                             <div><h6 class="text-truncate mb-2" style="font-size: 10pt"><strong>{{ product.title }}</strong></h6></div>
                                             <br>
-                                            <div><p class="text-truncate mb-2" style="font-size: 10pt">{{ product.description}}</p></div>
+                                            <div><p class="text-truncate mb-2" style="font-size: 10pt">{{ product.description|truncatechars:30|safe}}</p></div>
                                             <div class="product-rate font-small text-muted mb-2">
                                                 ⭐⭐⭐⭐<span style="font-size:8pt">(4.0)</span>
                                             </div>
@@ -128,9 +128,14 @@
                                                 <i class="fa-solid fa-heart text-success mx-1"></i>
                                             </a>
                                             <div class="add-cart">
-                                                <a class="add" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart">
+                                                <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ product.id }}">
+                                                <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}">
+                                                <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+                                                <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+                                                <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+                                                <button  class="add-to-cart-btn " data-index="{{ product.id }}"  title="Add To Cart" id="add-to-cart-btn" style="background: transparent; border: none">
                                                     <i class="fas fa-cart-shopping text-success"></i>
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

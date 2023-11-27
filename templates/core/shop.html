@@ -2,11 +2,13 @@
 {% load static %}
 {% block content %}
 
+
+
     <!-- Page Header Start -->
     <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Shop</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">Shop</span></h2>
 
-        </div>
+    </div>
     <!-- Page Header End -->
 
 
@@ -15,55 +17,26 @@
         <div class="row px-xl-5">
             <!-- Shop Sidebar Start -->
             <div class="col-lg-3 col-md-12">
-                <!-- Price Start -->
-                <div class="border-bottom mb-4 pb-4">
-                    <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">All Price</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">KSh0 - KSh500</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">KSh501 - KSh1000</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">KSh1001 - KSh3000</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">KSh3001 - KSh7000</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">KSh7001 - KSh10000</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Price End -->
+
 
                 <!-- Category Start -->
                 <div class="border-bottom mb-4 pb-4">
                     <h5 class="font-weight-semi-bold mb-4">Filter by category</h5>
                     <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">All Price</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-
+                        {% for c in categories %}
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" name="checkbox" class="form-check-input filter-checkbox" data-filter-title="category" id="exampleCheckBox1" value="{{ c.id }}">
+                                        <a href="{% url 'category_product_list' c.cid %}">{{ c.title }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endfor %}
                     </form>
+
+
+
                 </div>
                 <!-- Category End -->
 
@@ -71,36 +44,16 @@
                 <div class="border-bottom mb-4 pb-4">
                     <h5 class="font-weight-semi-bold mb-4">Filter by vendor</h5>
                     <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">All Price</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">KSh0 - KSh500</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">KSh501 - KSh1000</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">KSh1001 - KSh3000</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">KSh3001 - KSh7000</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">KSh7001 - KSh10000</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
+                        {% for v in vendors %}
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" name="checkbox" class="form-check-input filter-checkbox" data-filter-title="vendor" id="exampleCheckBox" value="{{ v.id }}">
+                                        <label class="form-check-label" for="exampleCheckBox1">{{ v.title }}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endfor %}
                     </form>
                 </div>
                 <!-- Vendor End -->
@@ -127,7 +80,7 @@
 
                         </div>
                     </div>
-                    <div class="row product-grid-4" style="margin:40px">
+                    <div class="row product-grid-4" id="filtered-products" style="margin:40px">
                         {# Repeat this block for each card #}
                         {% for product in products %}
                             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
@@ -149,7 +102,7 @@
                                             </div>
                                             <div><h6 class="text-truncate mb-2" style="font-size: 10pt">{{ product.title }}</h6></div>
                                             <div class="product-rate font-small text-muted mb-2">
-                                                {{ product.rating }} <span style="font-size:8pt">(4.0)</span>
+                                                 ⭐⭐⭐⭐<span style="font-size:8pt">(4.0)</span>
                                             </div>
                                             <div class="font-small text-muted" style="font-size:8pt">
                                                 By <a href="{% url 'vendor_details' product.vendor.vid %}">{{ product.vendor }}</a>
@@ -172,10 +125,15 @@
                                             <a class="action-link" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
                                                 <i class="fa-solid fa-heart text-success mx-1"></i>
                                             </a>
-                                            <div class="add-cart">
-                                                <a class="add" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart">
+                                             <div class="add-cart">
+                                                <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ product.id }}">
+                                                <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.pid }}">
+                                                <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+                                                <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+                                                <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+                                                <button  class="add-to-cart-btn " data-index="{{ product.id }}"  title="Add To Cart" id="add-to-cart-btn" style="background: transparent; border: none">
                                                     <i class="fas fa-cart-shopping text-success"></i>
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
