@@ -7,9 +7,9 @@
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Shop Detail</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="{% home %}">Home</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Shop Detail</p>
+                <p class="m-0">Product Detail</p>
             </div>
         </div>
     </div>
@@ -58,15 +58,15 @@
                 <br>
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
-                        <input type="number" class="form-control bg-light text-center rounded" value="1" id="product-quantity">
-                        {#                        <input type="hidden" value="{{ p.id }}" class="product-id" name="product_id" id="product_id">#}
-                        {#                        <input type="hidden" value="{{ p.title }}" class="product-title" name="product_title" id="product_title">#}
-                        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
+                        <input type="number" class=" product-quantity-{{ p.id }} form-control bg-light text-center rounded" value="1" id="product-quantity">
+
+{#                        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">#}
                         <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
                         <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
                         <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+                        <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
                     </div>
-                    <button type="submit" class="btn btn-success px-3 rounded" id="add-to-cart-btn><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                    <button type="submit" class="btn btn-success px-3 rounded add-to-cart-btn" data-index="{{ p.id }}"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                 </div>
 
             </div>

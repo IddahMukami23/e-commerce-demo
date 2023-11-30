@@ -1,10 +1,13 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from core.models import (Product, Category, Vendor, ProductReview, ProductImages, Wishlist, CartOrder, CartOrderItems,
                          Address)
 from taggit.models import Tag
 from core.forms import ProductReviewForm
 from django.template.loader import render_to_string
+from django.contrib import messages
+from .credentials import *
+import requests
 
 
 # Create your views here.
@@ -196,3 +199,142 @@ def add_to_cart(request):
 
     return JsonResponse({'data': request.session['cart_data_obj'],
                          'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+def cart_view(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            qtty = item['qtty']
+            price = item['price']
+            if qtty and price:
+                cart_total_amount += int(item['qtty']) * float(item['price'])
+            else:
+                messages.warning(request, "error")
+
+        return render(request, 'core/cart.html', {'cart_data': request.session['cart_data_obj'],
+                                                  'totalcartitems': len(request.session['cart_data_obj']),
+                                                  'cart_total_amount': cart_total_amount})
+
+    else:
+        messages.warning(request, "Your cart is empty")
+        return redirect('home')
+
+
+def delete_item_from_cart(request):
+    product_id = str(request.GET['id'])
+    if 'cart_data_obj' in request.session:
+        if product_id in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            del request.session['cart_data_obj'][product_id]
+            request.session['cart_data_obj'] = cart_data
+
+            cart_total_amount = 0
+            if 'cart_data_obj' in request.session:
+                for p_id, item in request.session['cart_data_obj'].items():
+                    cart_total_amount += int(item['qtty']) * float(item['price'])
+
+        context = render_to_string('core/async/cart-list.html', {'cart_data': request.session['cart_data_obj'],
+                                                                 'totalcartitems': len(
+                                                                     request.session['cart_data_obj']),
+                                                                 'cart_total_amount': cart_total_amount})
+        return JsonResponse({'data': context, 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+def update_cart(request):
+    product_id = str(request.GET['id'])
+    product_qtty = request.GET['qtty']
+
+    if 'cart_data_obj' in request.session:
+        if product_id in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qtty'] = product_qtty
+
+            request.session['cart_data_obj'] = cart_data
+
+            cart_total_amount = 0
+            if 'cart_data_obj' in request.session:
+                for p_id, item in request.session['cart_data_obj'].items():
+                    cart_total_amount += int(item['qtty']) * float(item['price'])
+
+        context = render_to_string('core/async/cart-list.html', {'cart_data': request.session['cart_data_obj'],
+                                                                 'totalcartitems': len(
+                                                                     request.session['cart_data_obj']),
+                                                                 'cart_total_amount': cart_total_amount})
+        return JsonResponse({'data': context, 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+def checkout_view(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qtty']) * float(item['price'])
+
+    return render(request, 'core/checkout.html', {'cart_data': request.session['cart_data_obj'],
+                                                  'totalcartitems': len(
+                                                      request.session['cart_data_obj']),
+                                                  'cart_total_amount': cart_total_amount})
+
+
+def payment(request):
+    cart_total_amount = 0
+
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qtty']) * float(item['price'])
+
+    if request.method == "POST":
+        phone = request.POST.get('phone', '')
+        amount = cart_total_amount
+        access_token = MpesaAccessToken.validated_mpesa_access_token
+        api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+        headers = {"Authorization": "Bearer %s" % access_token}
+        request = {
+            "BusinessShortCode": LipanaMpesaPassword.Business_short_code,
+            "Password": LipanaMpesaPassword.decode_password,
+            "Timestamp": LipanaMpesaPassword.lipa_time,
+            "TransactionType": "CustomerPayBillOnline",
+            "Amount": amount,
+            "PartyA": phone,
+            "PartyB": LipanaMpesaPassword.Business_short_code,
+            "PhoneNumber": phone,
+            "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
+            "AccountReference": "PYMENT001",
+            "TransactionDesc": "Product Payment"
+        }
+
+        response = requests.post(api_url, json=request, headers=headers)
+        return HttpResponse(response.text)
+
+    return render(request, 'core/payment.html', {'cart_total_amount': cart_total_amount})
+
+
+# def mpesa(request):
+#     # if request.method == "POST":
+#     # phone = request.POST.get('phone', '')  # Use lowercase 'phone'
+#     # amount = cart_total_amount
+#
+#     url = 'http://localhost:9000/token'
+#     myobj = {
+#         'phone': '0720829945',
+#         'amount': 10,
+#     }
+#
+#     try:
+#         # Send request to the token endpoint
+#         response = requests.post(url, json=myobj)
+#
+#         # Check if the payment was successful (you should adjust this based on the actual response format)
+#         if response:
+#             # Handle the successful payment, e.g., update the order status
+#             return HttpResponse(response.text)
+#         else:
+#             # Handle the failed payment, you might want to provide an error message
+#             return HttpResponse("Payment failed")
+#     except requests.RequestException as e:
+#         # Handle any exceptions that occurred during the request
+#         return HttpResponse(f"Error: {str(e)}")
+#
+#         # # If it's a GET request, render the payment form
+#
+#     # return HttpResponse("success")

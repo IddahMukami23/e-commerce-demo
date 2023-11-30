@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
 
+
     # my apps
     'core',
     'userAuth',
+
 ]
 
 MIDDLEWARE = [
@@ -137,21 +139,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userAuth.User'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
-
-# CKEDITOR_CONFIGS = {
-#
-#     'default': {
-#         'skin': 'moono',
-#         'codeSnippet_theme': 'monokai',
-#         'toolbar': 'all',
-#         'extraPlugins': ','.join(
-#             [
-#                 'codesnippet',
-#                 'widget',
-#                 'dialog',
-#             ]
-#
-#         ),
-#     }
-#
-# }
